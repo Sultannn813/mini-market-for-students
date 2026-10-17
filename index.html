@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Мини-магазин</title>
+  </head>
+
+  <body>
+    <header>
+      <h1>Магазин школьных товаров</h1>
+      <p>Товаров в корзине: <span id="cart-count">0</span></p>
+    </header>
+
+    <main>
+      <section>
+        <h2>Каталог</h2>
+        <!-- TODO: добавить фильтры -->
+        <div id="products"></div>
+      </section>
+
+      <section>
+        <h2>Корзина</h2>
+        <div id="cart">Корзина пуста</div>
+        <p>Сумма товаров: <span id="subtotal">0</span> ₸</p>
+      </section>
+
+      <section>
+        <h2>Оформление заказа</h2>
+        <!-- TODO: создать форму -->
+        <div id="order-result"></div>
+      </section>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
