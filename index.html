@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Мини-магазин школьных товаров</title>
+  <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="header__container">
+      <h1 class="header__title">Школьный Уголок</h1>
+      <nav class="header__nav">
+        <a href="#catalog" class="nav__link">Каталог</a>
+        <a href="#cart" class="nav__link">Корзина</a>
+        <a href="#order" class="nav__link">Тапсырыс</a>
+      </nav>
+      <div class="header__cart-info">
+        <a href="#cart" class="cart-btn">
+          🛒 Корзина 
+          <span id="cart-counter" class="cart-badge">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <section id="catalog" class="catalog-section">
+      <h2>Каталог товаров</h2>
+      
+      <div class="filters">
+        <input type="text" id="search-input" placeholder="Поиск по названию..." class="filter-input">
+        <input type="number" id="max-price-input" placeholder="Максимальная цена, ₸" class="filter-input">
+        <label class="filter-checkbox-label">
+          <input type="checkbox" id="in-stock-checkbox"> Только в наличии
+        </label>
+        <button id="apply-filters-btn" class="btn btn-primary">Применить</button>
+        <button id="reset-filters-btn" class="btn btn-secondary">Сбросить</button>
+      </div>
+
+      <div id="products-container" class="products-grid"></div>
+      <div id="no-products-message" class="hidden">Товары не найдены</div>
+    </section>
+
+    <section id="cart" class="cart-section">
+      <h2>Корзина</h2>
+      <div class="cart-container">
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th>Товар</th>
+              <th>Цена за единицу</th>
+              <th>Количество</th>
+              <th>Сумма позиции</th>
+              <th>Действие</th>
+            </tr>
+          </thead>
+          <tbody id="cart-items-body">
+          </tbody>
+        </table>
+        <div id="empty-cart-message">Корзина пуста</div>
+        
+        <div class="cart-summary">
+          <p>Сумма товаров: <span id="subtotal-amount">0</span> ₸</p>
+          <button id="clear-cart-btn" class="btn btn-danger">Очистить корзину</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="order" class="order-section">
+      <h2>Оформление заказа</h2>
+      <form id="order-form" class="order-form">
+        <div class="form-group">
+          <label for="customer-name">Имя *</label>
+          <input type="text" id="customer-name" required class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="customer-email">Email *</label>
+          <input type="email" id="customer-email" required class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="delivery-type">Способ получения *</label>
+          <select id="delivery-type" class="form-control">
+            <option value="pickup">Самовывоз (0 ₸)</option>
+            <option value="courier">Курьер (1000 ₸)</option>
+          </select>
+        </div>
+
+        <div class="form-group hidden" id="address-group">
+          <label for="customer-address">Адрес *</label>
+          <input type="text" id="customer-address" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="customer-comment">Комментарий</label>
+          <textarea id="customer-comment" class="form-control"></textarea>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label>
+            <input type="checkbox" id="confirm-checkbox" required> Я проверил состав заказа *
+          </label>
+        </div>
+
+        <div class="order-totals">
+          <p>Товары: <span id="order-subtotal">0</span> ₸</p>
+          <p>Доставка: <span id="order-delivery-cost">0</span> ₸</p>
+          <p class="order-total-highlight">Итого: <span id="order-total">0</span> ₸</p>
+        </div><div class="form-group hidden" id="address-group">
+          <label for="customer-address">Адрес *</label>
+          <input type="text" id="customer-address" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="customer-comment">Комментарий</label>
+          <textarea id="customer-comment" class="form-control"></textarea>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label>
+            <input type="checkbox" id="confirm-checkbox" required> Я проверил состав заказа *
+          </label>
+        </div>
+
+        <div class="order-totals">
+          <p>Товары: <span id="order-subtotal">0</span> ₸</p>
+          <p>Доставка: <span id="order-delivery-cost">0</span> ₸</p>
+          <p class="order-total-highlight">Итого: <span id="order-total">0</span> ₸</p>
+        </div>
+
+
+        <div id="form-error-message" class="error-message hidden"></div>
+
+        <button type="submit" class="btn btn-success">Оформить заказ</button>
+      </form>
+
+      <div id="order-result" class="hidden">
+        <h3>Заказ успешно оформлен!</h3>
+        <p>Покупатель: <span id="result-name"></span></p>
+        <div id="result-items"></div>
+        <p>Итого к оплате: <span id="result-total"></span> ₸</p>
+        <h4>JSON заказа:</h4>
+        <pre id="order-json-output"></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 Мини-магазин школьных товаров</p>
+  </footer>
+
+  <script src="src/app.js"></script>
+</body>
+</html>
